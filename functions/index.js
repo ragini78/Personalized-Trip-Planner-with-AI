@@ -1,3 +1,4 @@
+import * as functions from "firebase-functions";
 import express from 'express';
 import bodyParser from 'body-parser';
 import { VertexAI } from '@google-cloud/vertexai';
@@ -8,7 +9,7 @@ dotenv.config();
 
 
 const app = express();
-const API_PORT = 8080; // The port for our backend API
+//const API_PORT = 3001; // The port for our backend API
 app.use(cors());
 
 
@@ -223,7 +224,7 @@ app.listen(API_PORT, () => {
 
 
 
-app.post('/api/generate-itinerary', async (req, res) => {
+app.post('/generate-itinerary', async (req, res) => {
   try {
     const tripData = req.body;
     const prompt = `
@@ -255,7 +256,7 @@ app.post('/api/generate-itinerary', async (req, res) => {
       - Number of Travelers: ${tripData.travelers}
       - Budget: ${tripData.budget}
       - Trip Type: ${tripData.tripType}
-      - Interests: ${tripData.interests.join(', ')}
+      - Interests: ${Array.isArray(tripData.interests) ? tripData.interests.join(', ') : 'None'}
       - Accommodation: ${tripData.accommodation}
       - Transportation: ${tripData.transportation}
 
@@ -284,10 +285,14 @@ app.post('/api/generate-itinerary', async (req, res) => {
 });
 
 
+export const api = functions.https.onRequest(app);
+
+/*
 app.listen(API_PORT, () => {
   console.log(`Backend API server listening on http://localhost:${API_PORT}`);
 });
 
+*/
 
 
 
