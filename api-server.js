@@ -8,7 +8,7 @@ dotenv.config();
 
 
 const app = express();
-const API_PORT = 3001; // The port for our backend API
+const API_PORT = 8080; // The port for our backend API
 app.use(cors());
 
 
