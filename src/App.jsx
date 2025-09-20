@@ -196,7 +196,7 @@ export default function AITripPlanner() {
 
     const makeApiCall = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/generate-itinerary', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/generate-itinerary`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
